@@ -135,5 +135,13 @@ app.post('/s3/presign', async (req, res) => {
   res.json({ uploadUrl: url, key });
 });
 
+app.get('/check', (req, res) => {
+    res.status(200).json({
+        mensaje: "La API de JavaScript esta funcionando correctamente"
+    })
+    
+    //res.status(200).send("La API de JavaScript esta funcionando correctamente")
+})
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Node API en :${PORT}`));

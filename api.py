@@ -149,5 +149,9 @@ def s3_presign():
     )
     return jsonify({"uploadUrl": url, "key": key})
 
+@app.route('/check', methods=['GET'])
+def check():
+    return jsonify({"message": "La API de Python esta funcionando correctamente"}), 200
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")))
