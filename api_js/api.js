@@ -17,13 +17,26 @@ const app = express();
 app.use(express.json());
 
 // CORS de tu API (frontend -> API). Agrega tu dominio en prod.
+const origins = process.env.API_CORS_ORIGINS
+  ? process.env.API_CORS_ORIGINS.split(",")
+  : ["http://localhost:3000"];
+
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      if (!origin || origins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("CORS bloqueado para " + origin), false);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
+app.options("*", cors());
+
 
 // Multer: archivo en memoria (5MB máx.)
 const upload = multer({

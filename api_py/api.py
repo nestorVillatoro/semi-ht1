@@ -33,7 +33,10 @@ if not all([AWS_REGION, S3_BUCKET, DB_HOST, DB_USER, DB_PASSWORD, DB_NAME]):
     print("Revisa variables de entorno: AWS_REGION, S3_BUCKET_IMGS/S3_BUCKET, DB_*")
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": APP_ORIGINS}}, supports_credentials=True, methods=["GET", "POST", "PUT", "DELETE"])
+CORS(app,
+     resources={r"/*": {"origins": APP_ORIGINS}},
+     supports_credentials=True,
+     methods=["GET","POST","PUT","DELETE","OPTIONS"])
 
 # MySQL pool
 cnxpool = pooling.MySQLConnectionPool(
