@@ -1,17 +1,15 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-import os
 
 app = Flask(__name__)
-# CORS abierto para todos los orígenes y métodos
 CORS(app)
 
-@app.get("/check")
+@app.route('/check', methods=['GET'])
 def check():
-    return jsonify({"message": "La API de Python está funcionando correctamente"}), 200
+    return jsonify({"message": "La API de Python esta funcionando correctamente"}), 200
 
-@app.get("/get-data")
-def get_data():
+@app.route('/get-data', methods=['GET'])
+def info():
     return jsonify({
         "Instancia": "Maquina 2 - Api 2",
         "Curso": "Seminario de Sistemas 1 A",
@@ -20,7 +18,7 @@ def get_data():
     }), 200
 
 if __name__ == "__main__":
-    host = "0.0.0.0"
-    port = int(os.getenv("PORT", "5000"))
-    print(f"Servidor Flask en http://{host}:{port}")
-    app.run(host=host, port=port, debug=False, use_reloader=False)
+    saludo = "http://localhost:5000"
+    print(f"Servidor corriendo en {saludo}")
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+
